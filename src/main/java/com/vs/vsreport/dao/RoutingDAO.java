@@ -9,5 +9,5 @@ import com.vs.vsreport.entity.RoutingEntity;
 
 public interface RoutingDAO extends CrudRepository<RoutingEntity, Long> {
 
-	List<RoutingEntity> findAllByLastUpdatedGTSLessThanEqualAndLastUpdatedGTSGreaterThanEqual(Date endDate, Date startDate);
+	List<RoutingEntity> findAllByLST_UPDT_GTSLessThanEqualAndLST_UPDT_GTSGreaterThanEqual(Date endDate, Date startDate);
 }
