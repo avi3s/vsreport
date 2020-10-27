@@ -7,22 +7,26 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.google.gson.Gson;
+import com.vs.vsreport.config.MethodLog;
 import com.vs.vsreport.dao.AuthenticationDAO;
 import com.vs.vsreport.dao.AuthorizationDAO;
 import com.vs.vsreport.dao.RoutingDAO;
 import com.vs.vsreport.entity.RoutingEntity;
 import com.vs.vsreport.model.InputModel;
+import com.vs.vsreport.model.RuleModel;
 import com.vs.vsreport.service.VSReportService;
 
 @Service
 @Transactional
+@EnableAsync
 public class VSReportServiceImpl implements VSReportService {
 
 	@Autowired
@@ -53,50 +57,63 @@ public class VSReportServiceImpl implements VSReportService {
 	}
 
 	@Override
+	@Async
+	@MethodLog
 	public List<String> transactionCount(InputModel input) {
 
 		List<RoutingEntity> routingEntities = fetchAllFromRoutingTable(input);
 		if(!CollectionUtils.isEmpty(routingEntities)) {
-			List<RoutingEntity> worldPay = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("WORLDPAY")).collect(Collectors.toList());
-			List<RoutingEntity> realex = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("REALEX")).collect(Collectors.toList());
-			System.out.println("worldPay ==>> " + worldPay.size());
-			System.out.println("realex ==>> " + realex.size());
+			
+			for(RoutingEntity routingEntity: routingEntities) {
+				RuleModel ruleModel = new Gson().fromJson(routingEntity.getRTG_DATA_OBJ(), RuleModel.class);
+				System.out.println("ruleModel ==>> " +ruleModel);
+			}
+//			List<RoutingEntity> worldPay = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("WORLDPAY")).collect(Collectors.toList());
+//			List<RoutingEntity> realex = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("REALEX")).collect(Collectors.toList());
+//			System.out.println("worldPay ==>> " + worldPay.size());
+//			System.out.println("realex ==>> " + realex.size());
 		}
 		return null;
 	}
-
+	
 	@Override
-	public List<String> transactionTypeCount(@Valid InputModel input) {
+	@Async
+	public List<String> transactionTypeCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> cardTypeCount(@Valid InputModel input) {
+	@Async
+	public List<String> cardTypeCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> challengeCount(@Valid InputModel input) {
+	@Async
+	public List<String> challengeCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> frictionlessCount(@Valid InputModel input) {
+	@Async
+	public List<String> frictionlessCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> authenticationStatusOfSuccessCount(@Valid InputModel input) {
+	@Async
+	public List<String> authenticationStatusOfSuccessCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<String> failedAuthenticationCount(@Valid InputModel input) {
+	@Async
+	public List<String> failedAuthenticationCount(InputModel input) {
 		// TODO Auto-generated method stub
 		return null;
 	}
