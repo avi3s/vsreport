@@ -43,5 +43,6 @@ public class RoutingEntity {
 //	LST_UPDT_GTS	TIMESTAMP(6)
 	@Column(name = "LST_UPDT_GTS")
 	@JsonProperty("LST_UPDT_GTS")
-	private Timestamp LST_UPDT_GTS;
+	private Timestamp lastUpdatedGTS;
+	
 }
