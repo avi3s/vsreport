@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.vs.vsreport.dao.AuthenticationDAO;
+import com.vs.vsreport.dao.AuthorizationDAO;
 import com.vs.vsreport.dao.RoutingDAO;
 import com.vs.vsreport.entity.RoutingEntity;
 import com.vs.vsreport.model.InputModel;
@@ -25,6 +27,12 @@ public class VSReportServiceImpl implements VSReportService {
 
 	@Autowired
 	private RoutingDAO routingDAO;
+	
+	@Autowired
+	private AuthenticationDAO authenticationDAO;
+	
+	@Autowired
+	private AuthorizationDAO authorizationDAO;
 	
 	private List<RoutingEntity> fetchAllFromRoutingTable(InputModel input) {
 		
@@ -49,8 +57,10 @@ public class VSReportServiceImpl implements VSReportService {
 
 		List<RoutingEntity> routingEntities = fetchAllFromRoutingTable(input);
 		if(!CollectionUtils.isEmpty(routingEntities)) {
-			List<RoutingEntity> worldPay = routingEntities.parallelStream().filter(re -> re.getRtgDATAOBJ().contains("WORLDPAY")).collect(Collectors.toList());
-			List<RoutingEntity> realex = routingEntities.parallelStream().filter(re -> re.getRtgDATAOBJ().contains("REALEX")).collect(Collectors.toList());
+			List<RoutingEntity> worldPay = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("WORLDPAY")).collect(Collectors.toList());
+			List<RoutingEntity> realex = routingEntities.parallelStream().filter(re -> re.getRTG_DATA_OBJ().contains("REALEX")).collect(Collectors.toList());
+			System.out.println("worldPay ==>> " + worldPay.size());
+			System.out.println("realex ==>> " + realex.size());
 		}
 		return null;
 	}

@@ -23,22 +23,25 @@ import lombok.ToString;
 @ToString
 public class RoutingEntity {
 
-	
+	//	PMT_RFRN_ID	VARCHAR2(60 BYTE)
 	@Id
 	@Column(name = "PMT_RFRN_ID", columnDefinition = "char", length = 60)
-	@JsonProperty("paymentReferenceId")
-	private String paymentReferenceId;
+	@JsonProperty("PMT_RFRN_ID")
+	private String PMT_RFRN_ID;
 	
+//	ALT_PMT_RFRN_ID	VARCHAR2(60 BYTE)
 	@Column(name = "ALT_PMT_RFRN_ID", columnDefinition = "char", length = 60)
-	@JsonProperty("alternatePaymentReferenceId")
-	private String alternatePaymentReferenceId;
+	@JsonProperty("ALT_PMT_RFRN_ID")
+	private String ALT_PMT_RFRN_ID;
 	
+//	RTG_DATA_OBJ	CLOB
 	@Lob
 	@Column(name = "RTG_DATA_OBJ")
-	@JsonProperty("rtgDATAOBJ")
-	private String rtgDATAOBJ;
+	@JsonProperty("RTG_DATA_OBJ")
+	private String RTG_DATA_OBJ;
 	
+//	LST_UPDT_GTS	TIMESTAMP(6)
 	@Column(name = "LST_UPDT_GTS")
-	@JsonProperty("lastUpdatedGTS")
-	private Timestamp lastUpdatedGTS;
+	@JsonProperty("LST_UPDT_GTS")
+	private Timestamp LST_UPDT_GTS;
 }

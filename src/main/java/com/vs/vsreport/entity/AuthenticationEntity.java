@@ -26,13 +26,11 @@ import lombok.ToString;
 @ToString
 public class AuthenticationEntity {
 
-	private static final long serialVersionUID = 1074170048193121955L;
-	
 //	PMT_RFRN_ID	VARCHAR2(60 BYTE)
 	@Id
 	@Column(name = "PMT_RFRN_ID", columnDefinition = "char", length = 60)
-	@JsonProperty("paymentReferenceId")
-	private String paymentReferenceId;
+	@JsonProperty("PMT_RFRN_ID")
+	private String PMT_RFRN_ID;
 	
 //	UNVSL_CARDHLDR_ATHN_ID	VARCHAR2(38 BYTE)
 	@Column(name = "UNVSL_CARDHLDR_ATHN_ID", columnDefinition = "char", length = 38)
